@@ -17,6 +17,9 @@ resultCaracteresEspeciales = []
 resultDelimitadores = []
 resultIndefinidas = []
 resultErrores = []
+resultDigitos = []
+listResultados = []
+
 
 class analizador:
     tokens = tokens()
@@ -70,6 +73,13 @@ class analizador:
         print("Token Delimitadores: ",resultDelimitadores)
         print("Token Indefinidas: ",resultIndefinidas)
         print("Errores: ",resultErrores)
+        listResultados.append(resultReservadas)
+        listResultados.append(resultCaracteresEspeciales)
+        listResultados.append(resultDelimitadores)
+        listResultados.append(resultIndefinidas)
+        listResultados.append(resultDigitos)
+        listResultados.append(resultErrores)
+        return listResultados
 
     def funcAuxiliar(self, palabras):
         for i in tokens.reservadas:
