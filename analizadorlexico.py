@@ -1,6 +1,7 @@
 #from ast import If
 #from pprint import pp
 #from typing import final
+from genericpath import exists
 from multiprocessing.reduction import duplicate
 import re
 import string
@@ -24,21 +25,35 @@ class analizador:
         resultCaracteresEspeciales = []
         resultDelimitadores = []
         print("--- Lexico ---")
-        for i in tokens.reservadas:
-            for j in palabras:
-                if (i == j):
-                    resultReservadas.append(i)
-                    palabras.remove(i)
-        for l in tokens.caracteres_especiales:
-            for k in palabras:
-                if (l == k):
-                    resultCaracteresEspeciales.append(k)
-                    palabras.remove(l)
-        for t in tokens.delimitadores:
-            for f in palabras:
-                if (t == f):
-                    resultDelimitadores.append(t)
-                    palabras.remove(t)
+        for i in palabras:
+            if(i in tokens.reservadas):
+                resultReservadas.append(i)
+                palabras.remove(i)
+            if(i in tokens.caracteres_especiales):
+                resultCaracteresEspeciales.append(i)
+                palabras.remove(i)
+            if(i in tokens.delimitadores):
+                resultDelimitadores.append(i)
+                palabras.remove(i)
+
+            
+
+        # for i in tokens.reservadas:
+        #     for j in palabras:
+        #         if (i == j):
+        #             resultReservadas.append(i)
+        #             palabras.remove(i)
+        # for l in tokens.caracteres_especiales:
+        #     for k in palabras:
+        #         if (l == k):
+        #             resultCaracteresEspeciales.append(k)
+        #             palabras.remove(l)
+        # for t in tokens.delimitadores:
+        #     for f in palabras:
+        #         if (t == f):
+        #             resultDelimitadores.append(t)
+        #             palabras.remove(t)
+
         for g in range (len(palabras)):
             dato = re.search("[a-zA-Z][a-zA-Z0-9_]*", palabras[g])
             if dato:

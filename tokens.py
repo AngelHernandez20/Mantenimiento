@@ -1,9 +1,11 @@
+import numpy as np
+
 
 class tokens:
 
-    reservadas = ["def","self","print","class"]
-    caracteres_especiales = ["'"]
-    delimitadores = ["=", "(", ")", ":", "."]
+    reservadas = np.array(["def","self","print","class"])
+    caracteres_especiales = np.array(["'"])
+    delimitadores = np.array(["=", "(", ")", ":", "."])
     #indefinidas = ["[a-zA-Z][a-zA-Z0-9_]*"]
 
     #listTokens = []
