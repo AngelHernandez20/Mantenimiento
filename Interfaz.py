@@ -11,11 +11,35 @@ raiz = Tk()
 
 a = analizador()
 
+
 def datos():
-  listbox.delete(0, END)
+  #listbox.delete(0, END)
   print(entrada.get())
   palabras = re.split("\s",entrada.get())
-  a.inicio_analizador(palabras)
+  #a.inicio_analizador(palabras)
+  bandera = a.inicio_analizador(palabras)
+  print(bandera)
+  items = (
+    "-- Reservadas --",
+    bandera[0],
+    " ",
+    "-- Caracteres especiales --",
+    bandera[1],
+    " ",
+    "-- Delimitadores --",
+    bandera[2],
+    " ",
+    "-- Indefinidas --",
+    bandera[3],
+    " ",
+    "-- Digitos --",
+    bandera[4],
+    "  ",
+    "-- Errores --",
+    bandera[5]
+  )
+  listbox.insert(0, *items)
+
   
 def reiniciar():
   print("REINICIO") 
