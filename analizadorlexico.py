@@ -1,6 +1,7 @@
 #from ast import If
 #from pprint import pp
 #from typing import final
+from genericpath import exists
 from multiprocessing.reduction import duplicate
 import re
 import string
@@ -18,71 +19,59 @@ resultIndefinidas = []
 resultErrores = []
 
 class analizador:
-    
     tokens = tokens()
-
     def inicio_analizador(self, palabras):
         resultReservadas = []
         resultCaracteresEspeciales = []
         resultDelimitadores = []
         print("--- Lexico ---")
-        for i in tokens.reservadas:
-            for j in palabras:
-                if (i == j):
-                    resultReservadas.append(i)
-                    palabras.remove(i)
-        for l in tokens.caracteres_especiales:
-            for k in palabras:
-                if (l == k):
-                    resultCaracteresEspeciales.append(k)
-                    palabras.remove(l)
-        for t in tokens.delimitadores:
-            for f in palabras:
-                if (t == f):
-                    resultDelimitadores.append(t)
-                    palabras.remove(t)
+        for i in palabras:
+            if(i in tokens.reservadas):
+                resultReservadas.append(i)
+                palabras.remove(i)
+            if(i in tokens.caracteres_especiales):
+                resultCaracteresEspeciales.append(i)
+                palabras.remove(i)
+            if(i in tokens.delimitadores):
+                resultDelimitadores.append(i)
+                palabras.remove(i)
+
+            
+
+        # for i in tokens.reservadas:
+        #     for j in palabras:
+        #         if (i == j):
+        #             resultReservadas.append(i)
+        #             palabras.remove(i)
+        # for l in tokens.caracteres_especiales:
+        #     for k in palabras:
+        #         if (l == k):
+        #             resultCaracteresEspeciales.append(k)
+        #             palabras.remove(l)
+        # for t in tokens.delimitadores:
+        #     for f in palabras:
+        #         if (t == f):
+        #             resultDelimitadores.append(t)
+        #             palabras.remove(t)
+
         for g in range (len(palabras)):
             dato = re.search("[a-zA-Z][a-zA-Z0-9_]*", palabras[g])
             if dato:
-                #print("CUMPLIOOOOOO")
                 resultIndefinidas.append(palabras[g])
-                #palabras.remove(palabras[g])
             else:
                 dato1 = re.search("^[0-9]+$", palabras[g])
                 if dato1:
-                    #print("es un digito")
                     resultIndefinidas.append(palabras[g])
                 else:
-                    #print("Error: ", palabras[g])
                     resultErrores.append(palabras[g])
-        # for i in range (len(tokens.listTokens)):
-        #     if i == 0:
-        #         resultReservadas.append(set(tokens.listTokens[i]) & set(palabras))
-        #         #cantidadClass = palabras.count("class")
-        #         #cantidadDef = palabras.count("def")
-        #         #cantidadSelf = palabras.count("self")
-        #         #cantidadPrint = palabras.count("print")
-        #     if i == 1:
-        #         resultCaracteresEspeciales.append(set(tokens.listTokens[i]) & set(palabras))
-        #     if i == 2:
-        #         resultDelimitadores.append(set(tokens.listTokens[i]) & set(palabras))
-            #print(set(tokens.listTokens[i]) & set(palabras))
 
-        
         print("Token Reservadas: ",resultReservadas)
         print("Token Caracteres Especiales: ",resultCaracteresEspeciales)
         print("Token Delimitadores: ",resultDelimitadores)
         print("Token Indefinidas: ",resultIndefinidas)
         print("Errores: ",resultErrores)
-       
-        #print(palabras)
-        #print("Cantidad class: ", cantidadClass)
-    
-  
-    
 
     def funcAuxiliar(self, palabras):
-        # se buscan y se agregan a una lista los terminales
         for i in tokens.reservadas:
             for j in palabras:
                 if (i == j):
@@ -97,7 +86,6 @@ class analizador:
             for f in palabras:
                 if (t == f):
                     resultDelimitadores.append(t)
-        # evaluando la cantidad existentes
         c = 0
         s = 0
         p = 0
@@ -167,8 +155,3 @@ class analizador:
             print(palabras)
         else:
             print("NO CUMPLE")
-        #print("Existentes REPETIDOS:", existentes)
-        #print("Reservadas: ",resultReservadas)
-        #print("Caracteres especiales: ",resultCaracteresEspeciales)
-        #print("Delimitadores: ",resultDelimitadores)
-        #print(palabras)
