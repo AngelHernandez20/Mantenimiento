@@ -13,11 +13,16 @@ a = analizador()
 
 
 def datos():
-  #listbox.delete(0, END)
+  listbox.delete(0, END)
   print(entrada.get())
   palabras = re.split("\s",entrada.get())
-  #a.inicio_analizador(palabras)
   bandera = a.inicio_analizador(palabras)
+  mostrar(bandera)
+  #a.inicio_analizador(palabras)
+  
+
+def mostrar(bandera):
+  print("MOSTRAR DATOS")
   print(bandera)
   items = (
     "-- Reservadas --",
@@ -39,7 +44,6 @@ def datos():
     bandera[5]
   )
   listbox.insert(0, *items)
-
   
 def reiniciar():
   print("REINICIO") 
