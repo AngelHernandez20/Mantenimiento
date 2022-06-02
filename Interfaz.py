@@ -6,13 +6,16 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import re
+from turtle import color
+
+from numpy import place
 from analizadorlexico import *
 raiz = Tk()
 
 a = analizador()
 
 
-def datos():
+def enviardatos():
   listbox.delete(0, END)
   print(entrada.get())
   palabras = re.split("\s",entrada.get())
@@ -52,14 +55,19 @@ def reiniciar():
 
 entrada = StringVar()
 raiz.geometry('1050x500') 
-raiz.configure(bg = 'beige')
+raiz.configure(bg = 'lightblue')
 raiz.title('Lenguajes y Automatas')
 caja = Entry(raiz,textvariable=entrada)
-caja.place(x=278,y=57, width="500", height="35")
-ttk.Button(raiz, text='Busqueda', command=datos).place(x=500,y=30, width="100",height="24")
+caja.place(x=278,y=70, width="500", height="35")
+caja.configure(bg='white')  
+ttk.Button(raiz, text='Busqueda', command=enviardatos).place(x=500,y=43, width="100",height="24")
 ttk.Button(raiz, text='Reiniciar',command=reiniciar).place(x=800,y=250)
-ttk.Button(raiz, text='Salir', command=quit).pack(side=BOTTOM)
+ttk.Button(raiz, text='Salir', command=quit).place(x=525,y=465, width="50",height="25")
 listbox= Listbox()
-listbox.place(relx=0.25, rely=0.20, relheight=0.7, relwidth=0.5 )
+listbox.place(relx=0.25, rely=0.22, relheight=0.7, relwidth=0.5 )
+
+labelExample = Label(raiz, text="Analizador Lexico de una Clase en Python")
+labelExample.place(x=430, y=10, width="250",height="24" )
+
 
 raiz.mainloop()
